@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tilt for the Win — a daily ball-in-a-maze game</title>
+  <meta name="description" content="Tilt your phone to roll the ball through the maze. Wood, grass, stone and ice all play differently. A new maze every day and a global daily leaderboard. Coming soon to iOS and Android.">
+  <meta property="og:title" content="Tilt for the Win">
+  <meta property="og:description" content="The classic ball-in-a-maze toy, reinvented. A new maze every day. Coming soon to iOS and Android.">
+  <meta property="og:url" content="https://tilt-for-the-win.zdravkov.dev/">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#d9a066">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <a class="brand" href="/"><img src="favicon.svg" alt=""> Tilt for the Win</a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Tilt. Roll.<br><span>Win the day.</span></h1>
+          <p class="lead">The classic ball-in-a-maze toy, on your phone. A new maze every day, the same for everyone. How fast can you get to the hole?</p>
+          <div class="badges" aria-label="Platforms">
+            <span class="badge"><span aria-hidden="true">📱</span><span><small>Coming soon on</small>iPhone</span></span>
+            <span class="badge"><span aria-hidden="true">🤖</span><span><small>Coming soon on</small>Android</span></span>
+          </div>
+        </div>
+
+        <div class="board-stage" aria-hidden="true">
+          <div class="board">
+            <svg viewBox="0 0 308 308" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grain" width="308" height="14" patternUnits="userSpaceOnUse">
+                  <rect width="308" height="14" style="fill:var(--wood)"/>
+                  <path d="M0 7 Q77 3 154 7 T308 7" style="stroke:var(--wood-dark)" stroke-opacity=".18" fill="none"/>
+                </pattern>
+                <radialGradient id="ballShade" cx="35%" cy="30%" r="70%">
+                  <stop offset="0%" stop-color="#ffffff"/>
+                  <stop offset="60%" style="stop-color:var(--ball)"/>
+                  <stop offset="100%" style="stop-color:var(--ball-shade)"/>
+                </radialGradient>
+              </defs>
+              <rect width="308" height="308" fill="url(#grain)"/>
+              <g style="stroke:var(--wall)" stroke-width="8" stroke-linecap="round" fill="none">
+                <rect x="4" y="4" width="300" height="300" rx="18"/>
+                <path d="M132 132H264M264 132V264M132 176H220M132 132V220M176 220H220M132 220V304M176 264H304"/>
+                <path d="M88 4V176M44 88H88M44 220V304M132 44H264M220 4V88M4 220H88"/>
+              </g>
+              <circle cx="286" cy="286" r="15" style="fill:var(--hole)"/>
+              <circle class="ball" r="12" fill="url(#ballShade)">
+                <animateMotion dur="8s" repeatCount="indefinite" calcMode="linear"
+                  path="M154 154 H242 V242 H154 V286 H286" keyPoints="0;0;1;1" keyTimes="0;0.05;0.85;1"/>
+                <animate attributeName="r" dur="8s" repeatCount="indefinite" values="12;12;7;7" keyTimes="0;0.85;0.92;1"/>
+                <animate attributeName="opacity" dur="8s" repeatCount="indefinite" values="1;1;0;0" keyTimes="0;0.85;0.92;1"/>
+              </circle>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section class="features" id="features">
+        <h2>Simple to pick up. Hard to master.</h2>
+        <div class="grid">
+          <div class="card">
+            <div class="icon" aria-hidden="true">📐</div>
+            <h3>Real tilt controls</h3>
+            <p>Your phone is the board. Lean it, and the ball rolls with real momentum.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">🪵</div>
+            <h3>Materials matter</h3>
+            <p>Every floor and wall changes the physics: grip, speed and bounce.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">📅</div>
+            <h3>A new maze every day</h3>
+            <p>One maze for everyone, every day. Find the path first, then race the clock.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">🏆</div>
+            <h3>Daily leaderboard</h3>
+            <p>Times to the millisecond. Beat your best and climb the global board.</p>
+          </div>
+        </div>
+        <div class="materials" aria-label="Materials">
+          <span class="chip">Wood</span><span class="chip">Stone</span><span class="chip">Grass</span><span class="chip">Ice</span><span class="chip">Sand</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site">
+      <span>© 2026 Ivan Zdravkov</span>
+      <span><a href="privacy.html">Privacy policy</a> · <a href="mailto:ivan@zdravkov.dev">Contact</a></span>
+    </footer>
+  </div>
+  <script>
+    // Respect reduced-motion: freeze the ball in the centre of the board.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      document.querySelectorAll(".ball animate, .ball animateMotion").forEach(function (a) { a.remove(); });
+      var ball = document.querySelector(".ball");
+      if (ball) ball.setAttribute("transform", "translate(154 154)");
+    }
+  </script>
+</body>
+</html>
